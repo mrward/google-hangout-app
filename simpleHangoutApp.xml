@@ -62,15 +62,8 @@
 <input class="button" type="button" value="Change image" id="changeImage" 
     onClick="changeImage()"/>
 </p>
-<p>
-<input class="button" type="button" value="Enable chat"
-    onClick="enableChat" />
-</p>
 
 <script>
-function enableChat() {
-   gapi.hangout.layout.setChatPanelVisible(true);
-}
 
 function changeImage() {
   var image = document.getElementById('image');
