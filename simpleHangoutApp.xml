@@ -40,19 +40,21 @@
 
 <script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0" ></script>
 
-<h3>Simple Hangout App - Test</h3>
+<h3>Taboo</h3>
 
 <p>
-<input class="button" type="button" value="Show participants!" id="showParticipants" 
+<input class="button" type="button" value="Show welcome message" id="showParticipants" 
     style="visibility:hidden;"
-    onClick="showParticipants()"/>
+    onClick="showWelcomeMessage()"/>
 </p>
 
 <div id="participantsDiv"></div>
 
 <hr>
 
-<p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
+<div id="welcome" style="visibility:hidden;">
+<p>Hi <span id="participantName"></span></p>
+</div>
 
 <p><img id="image" src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
 
@@ -94,6 +96,10 @@ function showParticipants() {
   var div = document.getElementById('participantsDiv');
 
   div.innerHTML = retVal;
+}
+
+function showWelcomeMessage() {
+  document.getElementById('welcome').style.visibility = 'visible';
 }
 
 function init() {
