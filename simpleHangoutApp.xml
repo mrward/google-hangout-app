@@ -60,7 +60,7 @@
 
 <p>
     Enter word:
-    <input id="guess" type="text"/>
+    <input id="guess" type="text" onkeydown="processKeyPress(event)"/>
     <input id="guessButton" class="button" type="button" value="Guess" onClick="guessButtonClicked()"/>
 </p>
 <p id="result">
