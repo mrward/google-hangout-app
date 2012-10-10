@@ -59,6 +59,15 @@
 <p><img id="image" src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
 
 <p>
+    Enter word:
+    <input id="guess" type="text"/>
+    <input id="guessButton" class="button" type="button" value="Guess" onClick="guessButtonClicked()"/>
+</p>
+<p id="result">
+    
+</p>
+
+<p>
 <input class="button" type="button" value="Change image" id="changeImage" 
     onClick="changeImage()"/>
 </p>
@@ -68,6 +77,34 @@
 function changeImage() {
   var image = document.getElementById('image');
   image.src = "https://raw.github.com/mrward/google-hangout-app/master/200px_square_orange.png";
+}
+
+function guessButtonClicked() {
+    var guess = document.getElementById('guess').value;
+    guessWord(guess);
+}
+
+function guessWord(guess) {
+    var tabooWords = [ 'blue', 'orange', 'yellow', 'code' ];
+    var word = 'pebble';
+
+    for (var i = 0; i < tabooWords.length; i++) {
+        if (tabooWords[i] == guess ) {
+            showMessage("Taboo word: " + tabooWords[i]);
+            return;    
+        }
+    }
+
+    if (guess == word) {
+        showMessage("You win!");
+        changeImage();
+    } else {
+        showMessage("Try again");
+    }
+}
+
+function showMessage(message) {
+    document.getElementById("result").innerHTML = message;
 }
 
 function showParticipants() {
