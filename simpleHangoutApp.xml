@@ -79,6 +79,12 @@ function changeImage() {
   image.src = "https://raw.github.com/mrward/google-hangout-app/master/200px_square_orange.png";
 }
 
+function processKeyPress(e) {
+    if (event.keyCode == 13) {
+        guessButtonClicked();
+    }
+}
+
 function guessButtonClicked() {
     var guess = document.getElementById('guess').value;
     guessWord(guess);
