@@ -54,7 +54,7 @@
 
 <p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
 
-<p><img src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
+<p><img id="image" src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
 
 <p>
 <input class="button" type="button" value="Change image" id="changeImage" 
