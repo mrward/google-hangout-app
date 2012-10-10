@@ -20,141 +20,145 @@
 	<Content type="html"><![CDATA[
 
 <html>
-<style type="text/css">
-<!--
-.button {
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-  background: -moz-linear-gradient(top, #fff, #ddd);
-  border: 1px solid #bbb;
-}
-
-.button:active {
-	background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#333));
-	background: -moz-linear-gradient(bottom, #ddd, #aaa); }
-
--->
-</style>
-<body>
-
-<script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0" ></script>
-
-<h3>Taboo</h3>
-
-<p>
-<input class="button" type="button" value="Show welcome message" id="showParticipants"
-    style="visibility:hidden;"
-    onClick="showWelcomeMessage()"/>
-</p>
-
-<div id="participantsDiv"></div>
-
-<hr>
-
-<div id="welcome" style="visibility:hidden;">
-<p>Hi <span id="participantName"></span></p>
-</div>
-
-<p><img id="image" src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
-
-<p>
-    Enter word:
-    <input id="guess" type="text" onkeydown="processKeyPress(event)"/>
-    <input id="guessButton" class="button" type="button" value="Guess" onClick="guessButtonClicked()"/>
-</p>
-<p id="result">
-
-</p>
-
-<p>
-<input class="button" type="button" value="Change image" id="changeImage"
-    onClick="changeImage()"/>
-</p>
-
-<script>
-
-function changeImage() {
-  var image = document.getElementById('image');
-  image.src = "https://raw.github.com/mrward/google-hangout-app/master/200px_square_orange.png";
-}
-
-function processKeyPress(e) {
-    if (event.keyCode == 13) {
-        guessButtonClicked();
+  <head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" ></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.1/underscore-min.js" ></script>
+    <script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0" ></script>
+    <style type="text/css">
+    <!--
+    .button {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+      background: -moz-linear-gradient(top, #fff, #ddd);
+      border: 1px solid #bbb;
     }
-}
 
-function guessButtonClicked() {
-    var guess = document.getElementById('guess').value;
-    guessWord(guess);
-}
+    .button:active {
+    	background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#333));
+    	background: -moz-linear-gradient(bottom, #ddd, #aaa); }
 
-function guessWord(guess) {
-    var tabooWords = [ 'blue', 'orange', 'yellow', 'code' ];
-    var word = 'pebble';
+    -->
+    </style>
+  </head>
+  <body>
 
-    for (var i = 0; i < tabooWords.length; i++) {
-        if (tabooWords[i] == guess ) {
-            showMessage("Taboo word: " + tabooWords[i]);
-            return;
+    <h3>Taboo</h3>
+
+    <p>
+    <input class="button" type="button" value="Show welcome message" id="showParticipants"
+        style="visibility:hidden;"
+        onClick="showWelcomeMessage()"/>
+    </p>
+
+    <div id="participantsDiv"></div>
+
+    <hr>
+
+    <div id="welcome" style="visibility:hidden;">
+    <p>Hi <span id="participantName"></span></p>
+    </div>
+
+    <p><img id="image" src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
+
+    <p>
+        Enter word:
+        <input id="guess" type="text" onkeydown="processKeyPress(event)"/>
+        <input id="guessButton" class="button" type="button" value="Guess" onClick="guessButtonClicked()"/>
+    </p>
+    <p id="result">
+
+    </p>
+
+    <p>
+    <input class="button" type="button" value="Change image" id="changeImage"
+        onClick="changeImage()"/>
+    </p>
+
+    <script>
+
+    function changeImage() {
+      var image = document.getElementById('image');
+      image.src = "https://raw.github.com/mrward/google-hangout-app/master/200px_square_orange.png";
+    }
+
+    function processKeyPress(e) {
+        if (event.keyCode == 13) {
+            guessButtonClicked();
         }
     }
 
-    if (guess == word) {
-        showMessage("You win!");
-        changeImage();
-    } else {
-        showMessage("Try again");
+    function guessButtonClicked() {
+        var guess = document.getElementById('guess').value;
+        guessWord(guess);
     }
-}
 
-function showMessage(message) {
-    document.getElementById("result").innerHTML = message;
-}
+    function guessWord(guess) {
+        var tabooWords = [ 'blue', 'orange', 'yellow', 'code' ];
+        var word = 'pebble';
 
-function showParticipants() {
-  var participants = gapi.hangout.getParticipants();
-
-  var retVal = '<p>Participants: </p><ul>';
-
-  for (var index in participants) {
-    var participant = participants[index];
-
-    if (!participant.person) {
-      retVal += '<li>A participant not running this app</li>';
-    }
-    retVal += '<li>' + participant.person.displayName + '</li>';
-  }
-
-  retVal += '</ul>';
-
-  var div = document.getElementById('participantsDiv');
-
-  div.innerHTML = retVal;
-}
-
-function showWelcomeMessage() {
-  document.getElementById('welcome').style.visibility = 'visible';
-  var participants = gapi.hangout.getParticipants();
-  document.getElementById('participantName').innerHTML = participants[0].person.displayName;
-}
-
-function init() {
-  // When API is ready...
-  gapi.hangout.onApiReady.add(
-      function(eventObj) {
-        if (eventObj.isApiReady) {
-          document.getElementById('showParticipants')
-            .style.visibility = 'visible';
+        for (var i = 0; i < tabooWords.length; i++) {
+            if (tabooWords[i] == guess ) {
+                showMessage("Taboo word: " + tabooWords[i]);
+                return;
+            }
         }
-      });
-}
 
-// Wait for gadget to load.
-gadgets.util.registerOnLoadHandler(init);
-</script>
-</body>
+        if (guess == word) {
+            showMessage("You win!");
+            changeImage();
+        } else {
+            showMessage("Try again");
+        }
+    }
+
+    function showMessage(message) {
+        document.getElementById("result").innerHTML = message;
+    }
+
+    function showParticipants() {
+      var participants = gapi.hangout.getParticipants();
+
+      var retVal = '<p>Participants: </p><ul>';
+
+      for (var index in participants) {
+        var participant = participants[index];
+
+        if (!participant.person) {
+          retVal += '<li>A participant not running this app</li>';
+        }
+        retVal += '<li>' + participant.person.displayName + '</li>';
+      }
+
+      retVal += '</ul>';
+
+      var div = document.getElementById('participantsDiv');
+
+      div.innerHTML = retVal;
+    }
+
+    function showWelcomeMessage() {
+      document.getElementById('welcome').style.visibility = 'visible';
+      var participants = gapi.hangout.getParticipants();
+      document.getElementById('participantName').innerHTML = participants[0].person.displayName;
+    }
+
+    function init() {
+      // When API is ready...
+      gapi.hangout.onApiReady.add(
+          function(eventObj) {
+            if (eventObj.isApiReady) {
+              document.getElementById('showParticipants')
+                .style.visibility = 'visible';
+            }
+          });
+    }
+
+    // Wait for gadget to load.
+    gadgets.util.registerOnLoadHandler(init);
+    </script>
+  </body>
+</html>
 ]]>
 </Content>
 </Module>
