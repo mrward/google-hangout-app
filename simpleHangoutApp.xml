@@ -100,6 +100,8 @@ function showParticipants() {
 
 function showWelcomeMessage() {
   document.getElementById('welcome').style.visibility = 'visible';
+  var participant = gapi.hangout.getLocalParticipant();
+  document.getElementById('participantName').innerHTML = participant.person.displayName;
 }
 
 function init() {
