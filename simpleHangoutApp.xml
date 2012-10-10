@@ -137,7 +137,7 @@
       gapi.hangout.onApiReady.add(
           function(eventObj) {
             if (eventObj.isApiReady) {
-              showWelcomeMessage();
+              //showWelcomeMessage();
               document.getElementById('test').innerHTML = "testing";
             }
           });
