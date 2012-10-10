@@ -45,18 +45,8 @@
 
     <h3>Taboo</h3>
 
-    <p>
-    <input class="button" type="button" value="Show welcome message" id="showParticipants"
-        style="visibility:hidden;"
-        onClick="showWelcomeMessage()"/>
-    </p>
-
-    <div id="participantsDiv"></div>
-
-    <hr>
-
-    <div id="welcome" style="visibility:hidden;">
-    <p>Hi <span id="participantName"></span></p>
+    <div id="welcome">
+      <p>Hi <span id="participantName"></span></p>
     </div>
 
     <p><img id="image" src="https://raw.github.com/mrward/google-hangout-app/master/200px_square_pink.png"/></p>
@@ -138,9 +128,8 @@
     }
 
     function showWelcomeMessage() {
-      document.getElementById('welcome').style.visibility = 'visible';
       var participants = gapi.hangout.getParticipants();
-      document.getElementById('participantName').innerHTML = participants[0].person.displayName;
+      $("#participantName").html(participants[0].person.displayName);
     }
 
     function init() {
@@ -148,8 +137,7 @@
       gapi.hangout.onApiReady.add(
           function(eventObj) {
             if (eventObj.isApiReady) {
-              document.getElementById('showParticipants')
-                .style.visibility = 'visible';
+              showWelcomeMessage()
             }
           });
     }
