@@ -42,7 +42,7 @@
     <script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0" ></script>
 
     <h3>Taboo</h3>
-
+    <div id="test"></div>
     <div id="welcome">
       <p>Hi <span id="participantName"></span></p>
     </div>
@@ -137,7 +137,8 @@
       gapi.hangout.onApiReady.add(
           function(eventObj) {
             if (eventObj.isApiReady) {
-              showWelcomeMessage()
+              showWelcomeMessage();
+              document.getElementById('test').innerHTML = "testing";
             }
           });
     }
