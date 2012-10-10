@@ -101,7 +101,7 @@ function showParticipants() {
 function showWelcomeMessage() {
   document.getElementById('welcome').style.visibility = 'visible';
   var participants = gapi.hangout.getParticipants();
-  document.getElementById('participantName').innerHTML = participants[0];
+  document.getElementById('participantName').innerHTML = participants[0].person.displayName;
 }
 
 function init() {
