@@ -129,6 +129,7 @@
       var participants = gapi.hangout.getParticipants();
 
       $("#participantName").html(participants[0].person.displayName);
+      alert($("body"));
     }
 
     function init() {
